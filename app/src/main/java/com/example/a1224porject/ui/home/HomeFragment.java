@@ -23,6 +23,8 @@ import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.example.a1224porject.R;
 import com.example.a1224porject.adapter.MainSingleAdapter;
+import com.example.a1224porject.base.BaseFragment;
+import com.example.a1224porject.base.BasePersenter;
 import com.example.a1224porject.bean.MainSingleBean;
 import com.example.a1224porject.contract.MainSingleContract;
 import com.example.a1224porject.presenter.MainSinglePresenter;
@@ -30,7 +32,7 @@ import com.example.a1224porject.presenter.MainSinglePresenter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment implements MainSingleContract.MainSingleView {
+public class HomeFragment extends BaseFragment<MainSinglePresenter> implements MainSingleContract.MainSingleView {
 
     private HomeViewModel homeViewModel;
     private RecyclerView rlv;
@@ -41,15 +43,9 @@ public class HomeFragment extends Fragment implements MainSingleContract.MainSin
     private ArrayList<MainSingleBean.DataDTO.ChannelDTO> singlelist;
     private MainSingleAdapter mainSingleAdapter;
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-      //  homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        initView(view);
 
-        return view;
-    }
 
-    private void initView(View view) {
+    protected void initView(View view) {
         rlv = view.findViewById(R.id.rlv);
         vp = view.findViewById(R.id.vp);
 
@@ -89,19 +85,30 @@ public class HomeFragment extends Fragment implements MainSingleContract.MainSin
         gridLayoutHelper.setAutoExpand(false);//是否自动填充空白区域
         gridLayoutHelper.setSpanCount(5);// 设置每行多少个网格
         mainSingleAdapter = new MainSingleAdapter(gridLayoutHelper,getActivity(),singlelist);
-
-
-        MainSinglePresenter presenter = new MainSinglePresenter(this);
-        presenter.getdata();
         //设置适配器2
         delegateAdapter.addAdapter(mainSingleAdapter);
-
         //放最后
         rlv.setAdapter(delegateAdapter);
         rlv.setLayoutManager(vmanager);
 
     }
-//第层专题选择数据请求
+
+    @Override
+    protected void initDate() {
+        presenter.getdata();
+    }
+
+    @Override
+    protected int getLayout() {
+        return R.layout.fragment_home;
+    }
+
+    @Override
+    protected MainSinglePresenter getPresenter() {
+        return new MainSinglePresenter();
+    }
+
+    //第层专题选择数据请求
     @Override
     public void onScuess(MainSingleBean mainSingleBean) {
         singlelist.addAll(mainSingleBean.getData().getChannel());
