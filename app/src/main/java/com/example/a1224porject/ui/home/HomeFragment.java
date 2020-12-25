@@ -1,5 +1,6 @@
 package com.example.a1224porject.ui.home;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
+import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.example.a1224porject.R;
 import com.example.a1224porject.adapter.MainSingleAdapter;
@@ -67,16 +69,26 @@ public class HomeFragment extends Fragment implements MainSingleContract.MainSin
         pool.setMaxRecycledViews(0,20);
 //设置适配器1
         DelegateAdapter delegateAdapter = new DelegateAdapter(vmanager, true);
-
-        //第二行
-
-        SingleLayoutHelper singleLayoutHelper = new SingleLayoutHelper();
-        singleLayoutHelper.setItemCount(1);
-        singleLayoutHelper.setPadding(10, 10, 10, 10);// 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
-        singleLayoutHelper.setMargin(10, 10, 10, 10);
-        singleLayoutHelper.setAspectRatio(4);// 设置设置布局内每行布局的宽与高的比
         singlelist = new ArrayList<>();
-        mainSingleAdapter = new MainSingleAdapter(singleLayoutHelper,getActivity(),singlelist);
+
+        /**
+         设置Grid布局
+         */
+        GridLayoutHelper gridLayoutHelper = new GridLayoutHelper(5);
+        // 在构造函数设置每行的网格个数
+        // 公共属性
+        gridLayoutHelper.setItemCount(5);// 设置布局里Item个数
+        gridLayoutHelper.setPadding(10, 10, 10, 10);// 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
+        gridLayoutHelper.setMargin(10, 10, 10, 10);// 设置LayoutHelper边缘相对父控件（即RecyclerView）的距离
+        gridLayoutHelper.setBgColor(Color.WHITE);// 设置背景颜色
+        gridLayoutHelper.setAspectRatio(6);// 设置设置布局内每行布局的宽与高的比
+// gridLayoutHelper特有属性（下面会详细说明）
+        gridLayoutHelper.setWeights(new float[]{20, 20, 20, 20, 20});//设置每行中 每个网格宽度 占 每行总宽度 的比例
+        gridLayoutHelper.setVGap(20);// 控制子元素之间的垂直间距
+        gridLayoutHelper.setHGap(20);// 控制子元素之间的水平间距
+        gridLayoutHelper.setAutoExpand(false);//是否自动填充空白区域
+        gridLayoutHelper.setSpanCount(5);// 设置每行多少个网格
+        mainSingleAdapter = new MainSingleAdapter(gridLayoutHelper,getActivity(),singlelist);
 
 
         MainSinglePresenter presenter = new MainSinglePresenter(this);

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
+import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.bumptech.glide.Glide;
 import com.example.a1224porject.R;
@@ -21,19 +22,19 @@ import java.util.ArrayList;
 
 public class MainSingleAdapter extends DelegateAdapter.Adapter{
 
-    private SingleLayoutHelper singleLayoutHelper;
+    private GridLayoutHelper gridLayoutHelper;
     private Context context;
     private ArrayList<MainSingleBean.DataDTO.ChannelDTO> singlelist;
 
-    public MainSingleAdapter(SingleLayoutHelper singleLayoutHelper, Context context, ArrayList<MainSingleBean.DataDTO.ChannelDTO> singlelist) {
-        this.singleLayoutHelper = singleLayoutHelper;
+    public MainSingleAdapter(GridLayoutHelper gridLayoutHelper, Context context, ArrayList<MainSingleBean.DataDTO.ChannelDTO> singlelist) {
+        this.gridLayoutHelper = gridLayoutHelper;
         this.context = context;
         this.singlelist = singlelist;
     }
 
     @Override
     public LayoutHelper onCreateLayoutHelper() {
-        return singleLayoutHelper;
+        return gridLayoutHelper;
     }
 
     @NonNull
