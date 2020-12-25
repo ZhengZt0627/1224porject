@@ -7,31 +7,8 @@
     android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
 
-    <LinearLayout
-        android:layout_margin="10dp"
-        android:gravity="center"
-        android:id="@+id/ll"
-        android:background="#E7E9EC"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <ImageView
-            android:src="@drawable/ic_baseline_search_24"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
 
-        </ImageView>
-        <TextView
-            android:textSize="20sp"
-            android:text="商品搜索，共239款好物"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"></TextView>
 
-    </LinearLayout>
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/vp"
-        android:layout_width="match_parent"
-        android:layout_height="170dp"></androidx.viewpager.widget.ViewPager>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rlv"
         android:layout_width="match_parent"
