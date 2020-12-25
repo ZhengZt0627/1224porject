@@ -44,9 +44,9 @@ public class NextSingleAdapter extends DelegateAdapter.Adapter{
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Holder holder1= (Holder) holder;
-        Glide.with(context).load(nextlist.get(position).getList_pic_url()).into(holder1.img);
+       Glide.with(context).load(nextlist.get(position).getNew_pic_url()).into(holder1.img);
         holder1.name.setText(nextlist.get(position).getName());
-        holder1.pri.setText(nextlist.get(position).getFloor_price());
+        holder1.pri.setText(nextlist.get(position).getFloor_price()+"元起");
     }
 
     @Override
@@ -60,9 +60,9 @@ public class NextSingleAdapter extends DelegateAdapter.Adapter{
 
         public Holder(@NonNull View itemView) {
             super(itemView);
-            img = itemView.findViewById(R.id.img);
-            name = itemView.findViewById(R.id.name);
-            pri = itemView.findViewById(R.id.pri);
+            img = itemView.findViewById(R.id.iv_brand);
+            name = itemView.findViewById(R.id.tv_name_brand);
+            pri = itemView.findViewById(R.id.tv_price_brand);
         }
     }
 }

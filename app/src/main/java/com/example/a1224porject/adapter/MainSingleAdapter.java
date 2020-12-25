@@ -20,7 +20,7 @@ import com.example.a1224porject.bean.MainSingleBean;
 
 import java.util.ArrayList;
 
-public class MainSingleAdapter extends DelegateAdapter.Adapter{
+public class MainSingleAdapter extends DelegateAdapter.Adapter {
 
     private GridLayoutHelper gridLayoutHelper;
     private Context context;
@@ -47,7 +47,7 @@ public class MainSingleAdapter extends DelegateAdapter.Adapter{
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         Holder holder1 = (Holder) holder;
-       Glide.with(context).load(singlelist.get(position).getIcon_url()).into(holder1.img);
+        Glide.with(context).load(singlelist.get(position).getIcon_url()).into(holder1.img);
         holder1.tv.setText(singlelist.get(position).getName());
     }
 
