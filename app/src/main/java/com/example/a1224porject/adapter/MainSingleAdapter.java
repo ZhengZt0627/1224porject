@@ -19,7 +19,8 @@ import com.example.a1224porject.bean.MainSingleBean;
 
 import java.util.ArrayList;
 
-public class MainSingleAdapter extends DelegateAdapter.Adapter {
+public class MainSingleAdapter extends DelegateAdapter.Adapter{
+
     private SingleLayoutHelper singleLayoutHelper;
     private Context context;
     private ArrayList<MainSingleBean.DataDTO.ChannelDTO> singlelist;
@@ -38,28 +39,32 @@ public class MainSingleAdapter extends DelegateAdapter.Adapter {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view=View.inflate(context, R.layout.mainsingle_item,null);
+        View view = View.inflate(context, R.layout.mainsingle_item, null);
         return new Holder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Holder holder1= (Holder) holder;
-        Glide.with(context).load(singlelist.get(position).getIcon_url()).into(holder1.img);
+        Holder holder1 = (Holder) holder;
+       Glide.with(context).load(singlelist.get(position).getIcon_url()).into(holder1.img);
         holder1.tv.setText(singlelist.get(position).getName());
     }
 
     @Override
     public int getItemCount() {
-        return 1;
+        return singlelist.size();
     }
+
     class Holder extends RecyclerView.ViewHolder {
-private ImageView img;
-private TextView tv;
+        private ImageView img;
+        private TextView tv;
+
         public Holder(@NonNull View itemView) {
             super(itemView);
-            img=itemView.findViewById(R.id.img);
-            tv=itemView.findViewById(R.id.tv);
+            img = itemView.findViewById(R.id.img);
+            tv = itemView.findViewById(R.id.tv);
         }
     }
+
+
 }

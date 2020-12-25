@@ -75,9 +75,10 @@ public class HomeFragment extends Fragment implements MainSingleContract.MainSin
         singleLayoutHelper.setPadding(10, 10, 10, 10);// 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
         singleLayoutHelper.setMargin(10, 10, 10, 10);
         singleLayoutHelper.setAspectRatio(4);// 设置设置布局内每行布局的宽与高的比
+        singlelist = new ArrayList<>();
         mainSingleAdapter = new MainSingleAdapter(singleLayoutHelper,getActivity(),singlelist);
 
-        singlelist = new ArrayList<>();
+
         MainSinglePresenter presenter = new MainSinglePresenter(this);
         presenter.getdata();
         //设置适配器2
