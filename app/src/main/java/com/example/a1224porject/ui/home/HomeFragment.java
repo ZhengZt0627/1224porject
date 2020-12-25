@@ -23,6 +23,7 @@ import com.example.a1224porject.R;
 import com.example.a1224porject.adapter.MainSingleAdapter;
 import com.example.a1224porject.bean.MainSingleBean;
 import com.example.a1224porject.contract.MainSingleContract;
+import com.example.a1224porject.presenter.MainSinglePresenter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +36,9 @@ public class HomeFragment extends Fragment implements MainSingleContract.MainSin
     private ViewPager vp;
     private int images[] ={R.mipmap.p1,R.mipmap.p2,R.mipmap.p3};
     private List<View> views=new ArrayList<>();
+    private ArrayList<MainSingleBean.DataDTO.ChannelDTO> singlelist;
+    private MainSingleAdapter mainSingleAdapter;
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
       //  homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -71,8 +75,11 @@ public class HomeFragment extends Fragment implements MainSingleContract.MainSin
         singleLayoutHelper.setPadding(10, 10, 10, 10);// 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
         singleLayoutHelper.setMargin(10, 10, 10, 10);
         singleLayoutHelper.setAspectRatio(4);// 设置设置布局内每行布局的宽与高的比
-        MainSingleAdapter mainSingleAdapter = new MainSingleAdapter(singleLayoutHelper, getActivity());
+        mainSingleAdapter = new MainSingleAdapter(singleLayoutHelper,getActivity(),singlelist);
 
+        singlelist = new ArrayList<>();
+        MainSinglePresenter presenter = new MainSinglePresenter(this);
+        presenter.getdata();
         //设置适配器2
         delegateAdapter.addAdapter(mainSingleAdapter);
 
@@ -84,7 +91,8 @@ public class HomeFragment extends Fragment implements MainSingleContract.MainSin
 //第层专题选择数据请求
     @Override
     public void onScuess(MainSingleBean mainSingleBean) {
-
+        singlelist.addAll(mainSingleBean.getData().getChannel());
+        mainSingleAdapter.notifyDataSetChanged();
     }
 
     @Override

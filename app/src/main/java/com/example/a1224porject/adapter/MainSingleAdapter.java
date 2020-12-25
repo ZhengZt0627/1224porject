@@ -1,8 +1,10 @@
 package com.example.a1224porject.adapter;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -11,15 +13,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.LayoutHelper;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
+import com.bumptech.glide.Glide;
 import com.example.a1224porject.R;
+import com.example.a1224porject.bean.MainSingleBean;
+
+import java.util.ArrayList;
 
 public class MainSingleAdapter extends DelegateAdapter.Adapter {
     private SingleLayoutHelper singleLayoutHelper;
     private Context context;
+    private ArrayList<MainSingleBean.DataDTO.ChannelDTO> singlelist;
 
-    public MainSingleAdapter(SingleLayoutHelper singleLayoutHelper, Context context) {
+    public MainSingleAdapter(SingleLayoutHelper singleLayoutHelper, Context context, ArrayList<MainSingleBean.DataDTO.ChannelDTO> singlelist) {
         this.singleLayoutHelper = singleLayoutHelper;
         this.context = context;
+        this.singlelist = singlelist;
     }
 
     @Override
@@ -36,7 +44,9 @@ public class MainSingleAdapter extends DelegateAdapter.Adapter {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
+        Holder holder1= (Holder) holder;
+        Glide.with(context).load(singlelist.get(position).getIcon_url()).into(holder1.img);
+        holder1.tv.setText(singlelist.get(position).getName());
     }
 
     @Override
@@ -44,10 +54,12 @@ public class MainSingleAdapter extends DelegateAdapter.Adapter {
         return 1;
     }
     class Holder extends RecyclerView.ViewHolder {
-
+private ImageView img;
+private TextView tv;
         public Holder(@NonNull View itemView) {
             super(itemView);
-
+            img=itemView.findViewById(R.id.img);
+            tv=itemView.findViewById(R.id.tv);
         }
     }
 }
