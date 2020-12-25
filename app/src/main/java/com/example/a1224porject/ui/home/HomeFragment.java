@@ -26,6 +26,7 @@ import com.example.a1224porject.adapter.BannerAdapter;
 import com.example.a1224porject.adapter.FindAdapter;
 import com.example.a1224porject.adapter.MainSingleAdapter;
 import com.example.a1224porject.adapter.MonAdapter;
+import com.example.a1224porject.adapter.NewGoodsAdapter;
 import com.example.a1224porject.adapter.NextSingleAdapter;
 import com.example.a1224porject.adapter.TextAdapter;
 import com.example.a1224porject.base.BaseFragment;
@@ -53,6 +54,8 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
     private BannerAdapter bannerAdapter;
     private FindAdapter findAdapter;
     private MonAdapter monAdapter;
+    private ArrayList<MainSingleBean.DataDTO.NewGoodsListDTO> goodslist;
+    private NewGoodsAdapter newGoodsAdapter;
 
 
     protected void initView(View view) {
@@ -108,14 +111,12 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
         //设置适配器2
         delegateAdapter.addAdapter(mainSingleAdapter);
 
-
         //定义文字
         SingleLayoutHelper singleLayoutHelper = new SingleLayoutHelper();
         // 公共属性
         singleLayoutHelper.setItemCount(1);// 设置布局里Item个数
         textAdapter = new TextAdapter(singleLayoutHelper, getActivity());
         delegateAdapter.addAdapter(textAdapter);
-
 
         //列表展示：
         nextlist = new ArrayList<>();
@@ -144,6 +145,23 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
         monAdapter = new MonAdapter(singleLayoutHelper4, getActivity());
         delegateAdapter.addAdapter(monAdapter);
 
+        //周一周日网格：
+        goodslist = new ArrayList<>();
+        ///< 网格布局 - 构造中传入相应的列的数量
+        GridLayoutHelper gridLayoutHelper2 = new GridLayoutHelper(4);
+        //gridLayoutHelper1.setMarginTop(30);
+        gridLayoutHelper2.setSpanCount(2);
+        //设置垂直方向条目的间隔
+        gridLayoutHelper2.setVGap(5);
+        //设置水平方向条目的间隔
+        gridLayoutHelper2.setHGap(5);
+        gridLayoutHelper2.setMarginLeft(30);
+        gridLayoutHelper2.setMarginRight(30);
+        //  gridLayoutHelper1.setMarginBottom(30);
+        //自动填充满布局，在设置完权重，若没有占满，自动填充满布局
+        gridLayoutHelper2.setAutoExpand(true);
+        newGoodsAdapter = new NewGoodsAdapter(goodslist, gridLayoutHelper2, getActivity());
+        delegateAdapter.addAdapter(newGoodsAdapter);
         //放最后
         rlv.setAdapter(delegateAdapter);
         rlv.setLayoutManager(vmanager);
@@ -171,11 +189,13 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
         singlelist.addAll(mainSingleBean.getData().getChannel());
         nextlist.addAll(mainSingleBean.getData().getBrandList());
         bannerlist.addAll(mainSingleBean.getData().getBanner());
+        goodslist.addAll(mainSingleBean.getData().getNewGoodsList());
         bannerAdapter.notifyDataSetChanged();
         nextSingleAdapter.notifyDataSetChanged();
         mainSingleAdapter.notifyDataSetChanged();
         findAdapter.notifyDataSetChanged();
         monAdapter.notifyDataSetChanged();
+        newGoodsAdapter.notifyDataSetChanged();
     }
 
     @Override

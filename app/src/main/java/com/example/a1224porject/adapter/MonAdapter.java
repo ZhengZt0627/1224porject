@@ -31,7 +31,7 @@ public class MonAdapter extends DelegateAdapter.Adapter{
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View inflate = LayoutInflater.from(context).inflate(R.layout.single_itm, null);
+        View inflate = LayoutInflater.from(context).inflate(R.layout.mon_item, null);
         return new Holder(inflate);
     }
 
