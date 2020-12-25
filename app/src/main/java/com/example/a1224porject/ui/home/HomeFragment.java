@@ -24,6 +24,7 @@ import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.example.a1224porject.R;
 import com.example.a1224porject.adapter.MainSingleAdapter;
 import com.example.a1224porject.adapter.NextSingleAdapter;
+import com.example.a1224porject.adapter.TextAdapter;
 import com.example.a1224porject.base.BaseFragment;
 import com.example.a1224porject.base.BasePersenter;
 import com.example.a1224porject.bean.MainSingleBean;
@@ -45,6 +46,7 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
     private MainSingleAdapter mainSingleAdapter;
     private ArrayList<MainSingleBean.DataDTO.BrandListDTO> nextlist;
     private NextSingleAdapter nextSingleAdapter;
+    private TextAdapter textAdapter;
 
 
     protected void initView(View view) {
@@ -66,7 +68,7 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
         rlv.setRecycledViewPool(pool);
         pool.setMaxRecycledViews(0,20);
 //设置适配器1
-        DelegateAdapter delegateAdapter = new DelegateAdapter(vmanager, true);
+        DelegateAdapter delegateAdapter = new DelegateAdapter(vmanager);
 
 
         /**
@@ -90,12 +92,25 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
         mainSingleAdapter = new MainSingleAdapter(gridLayoutHelper,getActivity(),singlelist);
         //设置适配器2
         delegateAdapter.addAdapter(mainSingleAdapter);
-        //列表展示：
 
+
+        //定义文字
+        SingleLayoutHelper singleLayoutHelper = new SingleLayoutHelper();
+        // 公共属性
+        singleLayoutHelper.setItemCount(1);// 设置布局里Item个数
+//        singleLayoutHelper.setPadding(10, 10, 10, 10);// 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
+//        singleLayoutHelper.setMargin(10, 10, 10, 10);// 设置LayoutHelper边缘相对父控件（即RecyclerView）的距离
+        singleLayoutHelper.setBgColor(Color.WHITE);// 设置背景颜色
+        singleLayoutHelper.setAspectRatio(4);// 设置设置布局内每行布局的宽与高的比
+        textAdapter = new TextAdapter(singleLayoutHelper,getActivity());
+       delegateAdapter.addAdapter(textAdapter);
+
+
+        //列表展示：
         nextlist = new ArrayList<>();
         ///< 网格布局 - 构造中传入相应的列的数量
         GridLayoutHelper gridLayoutHelper1 = new GridLayoutHelper(4);
-//        gridLayoutHelper1.setMarginTop(30);
+      //gridLayoutHelper1.setMarginTop(30);
         gridLayoutHelper1.setSpanCount(2);
         //设置垂直方向条目的间隔
         gridLayoutHelper1.setVGap(5);
@@ -103,7 +118,7 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
         gridLayoutHelper1.setHGap(5);
         gridLayoutHelper1.setMarginLeft(30);
         gridLayoutHelper1.setMarginRight(30);
-        gridLayoutHelper1.setMarginBottom(30);
+      //  gridLayoutHelper1.setMarginBottom(30);
         //自动填充满布局，在设置完权重，若没有占满，自动填充满布局
         gridLayoutHelper1.setAutoExpand(true);
         nextSingleAdapter = new NextSingleAdapter(nextlist, gridLayoutHelper1, getActivity());

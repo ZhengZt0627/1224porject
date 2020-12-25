@@ -31,7 +31,7 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vp"
         android:layout_width="match_parent"
-        android:layout_height="210dp"></androidx.viewpager.widget.ViewPager>
+        android:layout_height="170dp"></androidx.viewpager.widget.ViewPager>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rlv"
         android:layout_width="match_parent"
