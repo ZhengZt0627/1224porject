@@ -21,11 +21,13 @@ import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.example.a1224porject.R;
 import com.example.a1224porject.adapter.MainSingleAdapter;
+import com.example.a1224porject.bean.MainSingleBean;
+import com.example.a1224porject.contract.MainSingleContract;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements MainSingleContract.MainSingleView {
 
     private HomeViewModel homeViewModel;
     private RecyclerView rlv;
@@ -71,13 +73,22 @@ public class HomeFragment extends Fragment {
         singleLayoutHelper.setAspectRatio(4);// 设置设置布局内每行布局的宽与高的比
         MainSingleAdapter mainSingleAdapter = new MainSingleAdapter(singleLayoutHelper, getActivity());
 
-
         //设置适配器2
         delegateAdapter.addAdapter(mainSingleAdapter);
 
         //放最后
         rlv.setAdapter(delegateAdapter);
         rlv.setLayoutManager(vmanager);
+
+    }
+//第层专题选择数据请求
+    @Override
+    public void onScuess(MainSingleBean mainSingleBean) {
+
+    }
+
+    @Override
+    public void onFeil(String msg) {
 
     }
 
