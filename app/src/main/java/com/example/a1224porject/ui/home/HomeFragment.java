@@ -18,7 +18,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
+import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.example.a1224porject.R;
+import com.example.a1224porject.adapter.MainSingleAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,12 +59,25 @@ public class HomeFragment extends Fragment {
         RecyclerView.RecycledViewPool pool = new RecyclerView.RecycledViewPool();
         rlv.setRecycledViewPool(pool);
         pool.setMaxRecycledViews(0,20);
-
-        //设置适配器
+//设置适配器1
         DelegateAdapter delegateAdapter = new DelegateAdapter(vmanager, true);
-        rlv.setAdapter(delegateAdapter);
 
-        //第一层
+        //第二行
+
+        SingleLayoutHelper singleLayoutHelper = new SingleLayoutHelper();
+        singleLayoutHelper.setItemCount(1);
+        singleLayoutHelper.setPadding(10, 10, 10, 10);// 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
+        singleLayoutHelper.setMargin(10, 10, 10, 10);
+        singleLayoutHelper.setAspectRatio(4);// 设置设置布局内每行布局的宽与高的比
+        MainSingleAdapter mainSingleAdapter = new MainSingleAdapter(singleLayoutHelper, getActivity());
+
+
+        //设置适配器2
+        delegateAdapter.addAdapter(mainSingleAdapter);
+
+        //放最后
+        rlv.setAdapter(delegateAdapter);
+        rlv.setLayoutManager(vmanager);
 
     }
 
