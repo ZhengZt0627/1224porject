@@ -23,6 +23,7 @@ import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.example.a1224porject.R;
 import com.example.a1224porject.adapter.MainSingleAdapter;
+import com.example.a1224porject.adapter.NextSingleAdapter;
 import com.example.a1224porject.base.BaseFragment;
 import com.example.a1224porject.base.BasePersenter;
 import com.example.a1224porject.bean.MainSingleBean;
@@ -42,7 +43,8 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
     private List<View> views=new ArrayList<>();
     private ArrayList<MainSingleBean.DataDTO.ChannelDTO> singlelist;
     private MainSingleAdapter mainSingleAdapter;
-
+    private ArrayList<MainSingleBean.DataDTO.BrandListDTO> nextlist;
+    private NextSingleAdapter nextSingleAdapter;
 
 
     protected void initView(View view) {
@@ -78,7 +80,7 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
         gridLayoutHelper.setMargin(10, 10, 10, 10);// 设置LayoutHelper边缘相对父控件（即RecyclerView）的距离
         gridLayoutHelper.setBgColor(Color.WHITE);// 设置背景颜色
         gridLayoutHelper.setAspectRatio(6);// 设置设置布局内每行布局的宽与高的比
-// gridLayoutHelper特有属性（下面会详细说明）
+        // gridLayoutHelper特有属性（下面会详细说明）
         gridLayoutHelper.setWeights(new float[]{20, 20, 20, 20, 20});//设置每行中 每个网格宽度 占 每行总宽度 的比例
         gridLayoutHelper.setVGap(20);// 控制子元素之间的垂直间距
         gridLayoutHelper.setHGap(20);// 控制子元素之间的水平间距
@@ -87,6 +89,27 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
         mainSingleAdapter = new MainSingleAdapter(gridLayoutHelper,getActivity(),singlelist);
         //设置适配器2
         delegateAdapter.addAdapter(mainSingleAdapter);
+        //列表展示：
+
+        nextlist = new ArrayList<>();
+        GridLayoutHelper gridLayoutHelper1 = new GridLayoutHelper(2);
+        // 在构造函数设置每行的网格个数
+        // 公共属性
+        gridLayoutHelper.setItemCount(2);// 设置布局里Item个数
+        gridLayoutHelper.setPadding(10, 10, 10, 10);// 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
+        gridLayoutHelper.setMargin(10, 10, 10, 10);// 设置LayoutHelper边缘相对父控件（即RecyclerView）的距离
+        gridLayoutHelper.setBgColor(Color.WHITE);// 设置背景颜色
+        gridLayoutHelper.setAspectRatio(6);// 设置设置布局内每行布局的宽与高的比
+        // gridLayoutHelper特有属性（下面会详细说明）
+        gridLayoutHelper.setWeights(new float[]{20, 20, 20, 20, 20});//设置每行中 每个网格宽度 占 每行总宽度 的比例
+        gridLayoutHelper.setVGap(20);// 控制子元素之间的垂直间距
+        gridLayoutHelper.setHGap(20);// 控制子元素之间的水平间距
+        gridLayoutHelper.setAutoExpand(false);//是否自动填充空白区域
+        gridLayoutHelper.setSpanCount(2);// 设置每行多少个网格
+        nextSingleAdapter = new NextSingleAdapter(nextlist, gridLayoutHelper1, getActivity());
+        //设置适配器2
+        delegateAdapter.addAdapter(nextSingleAdapter);
+
         //放最后
         rlv.setAdapter(delegateAdapter);
         rlv.setLayoutManager(vmanager);
