@@ -3,6 +3,7 @@ package com.example.a1224porject.ui.home;
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.example.a1224porject.R;
 import com.example.a1224porject.adapter.BannerAdapter;
+import com.example.a1224porject.adapter.CateAdapter;
 import com.example.a1224porject.adapter.FindAdapter;
 import com.example.a1224porject.adapter.HotGoodsAdapter;
 import com.example.a1224porject.adapter.MainSingleAdapter;
@@ -47,11 +49,8 @@ import java.util.List;
 
 public class HomeFragment extends BaseFragment<MainSinglePresenter> implements MainSingleContract.MainSingleView {
 
-    private HomeViewModel homeViewModel;
     private RecyclerView rlv;
     private VirtualLayoutManager vmanager;
-    private ViewPager vp;
-    private List<View> views = new ArrayList<>();
     private ArrayList<MainSingleBean.DataDTO.ChannelDTO> singlelist;
     private MainSingleAdapter mainSingleAdapter;
     private ArrayList<MainSingleBean.DataDTO.BrandListDTO> nextlist;
@@ -68,22 +67,15 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
     private DelegateAdapter delegateAdapter;
     private HotGoodsAdapter hotGoodsAdapter;
     private ArrayList<MainSingleBean.DataDTO.TopicListDTO> toplist;
-    private TopAdapter topAdapter;
     private TopallAdapter topallAdapter;
     private ZtAdapter ztAdapter;
-
+    private ArrayList<MainSingleBean.DataDTO.CategoryListDTO> catList;
+    private CateAdapter cateAdapter;
 
     protected void initView(View view) {
         rlv = view.findViewById(R.id.rlv);
-
         //创建Vlayout对象
-        vmanager = new VirtualLayoutManager(getActivity());
-
-        RecyclerView.RecycledViewPool pool = new RecyclerView.RecycledViewPool();
-        rlv.setRecycledViewPool(pool);
-        pool.setMaxRecycledViews(0, 20);
-        //设置总体适配器
-        delegateAdapter = new DelegateAdapter(vmanager);
+        initVmanager();
         //搜索框
         initSearch();
         //banner
@@ -96,14 +88,15 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
         initSColl();
         //居家开始 数据展示
         initShow();
-        //放最后
-        rlv.setAdapter(delegateAdapter);
-        rlv.setLayoutManager(vmanager);
-
+        //布局管理器绑定
+        initsetmanager();
     }
-
     private void initShow() {
-
+        catList = new ArrayList<>();
+        SingleLayoutHelper singleLayoutHelperc = new SingleLayoutHelper();
+        singleLayoutHelperc.setItemCount(4);
+        cateAdapter = new CateAdapter(singleLayoutHelperc,getActivity(),catList);
+        delegateAdapter.addAdapter(cateAdapter);
     }
     private void initSColl() {
         //定义文字：专题推荐
@@ -229,7 +222,20 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
 
     }
 
+    private void initVmanager() {
+        vmanager = new VirtualLayoutManager(getActivity());
 
+        RecyclerView.RecycledViewPool pool = new RecyclerView.RecycledViewPool();
+        rlv.setRecycledViewPool(pool);
+        pool.setMaxRecycledViews(0, 20);
+        //设置总体适配器
+        delegateAdapter = new DelegateAdapter(vmanager);
+    }
+
+    private void initsetmanager() {
+        rlv.setAdapter(delegateAdapter);
+        rlv.setLayoutManager(vmanager);
+    }
     @Override
     protected void initDate() {
         presenter.getdata();
@@ -254,6 +260,8 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
         goodslist.addAll(mainSingleBean.getData().getNewGoodsList());
         hotlist.addAll(mainSingleBean.getData().getHotGoodsList());
         toplist.addAll(mainSingleBean.getData().getTopicList());
+        catList.addAll(mainSingleBean.getData().getCategoryList());
+        cateAdapter.notifyDataSetChanged();
         topallAdapter.notifyDataSetChanged();
         ztAdapter.notifyDataSetChanged();
         bannerAdapter.notifyDataSetChanged();
@@ -268,7 +276,6 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
 
     @Override
     public void onFeil(String msg) {
-
     }
 
 }
