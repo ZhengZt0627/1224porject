@@ -29,6 +29,7 @@ import com.example.a1224porject.adapter.MonAdapter;
 import com.example.a1224porject.adapter.NewGoodsAdapter;
 import com.example.a1224porject.adapter.NextSingleAdapter;
 import com.example.a1224porject.adapter.TextAdapter;
+import com.example.a1224porject.adapter.ploAdapter;
 import com.example.a1224porject.base.BaseFragment;
 import com.example.a1224porject.base.BasePersenter;
 import com.example.a1224porject.bean.MainSingleBean;
@@ -56,6 +57,7 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
     private MonAdapter monAdapter;
     private ArrayList<MainSingleBean.DataDTO.NewGoodsListDTO> goodslist;
     private NewGoodsAdapter newGoodsAdapter;
+    private com.example.a1224porject.adapter.ploAdapter ploAdapter;
 
 
     protected void initView(View view) {
@@ -162,6 +164,20 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
         gridLayoutHelper2.setAutoExpand(true);
         newGoodsAdapter = new NewGoodsAdapter(goodslist, gridLayoutHelper2, getActivity());
         delegateAdapter.addAdapter(newGoodsAdapter);
+
+        //固定文字
+        //定义文字：人气推荐
+        SingleLayoutHelper singleLayoutHelper5 = new SingleLayoutHelper();
+        // 公共属性
+        singleLayoutHelper5.setItemCount(1);// 设置布局里Item个数
+        ploAdapter = new ploAdapter(singleLayoutHelper5,getActivity());
+        delegateAdapter.addAdapter(ploAdapter);
+        //人气推荐网格：
+
+
+
+
+
         //放最后
         rlv.setAdapter(delegateAdapter);
         rlv.setLayoutManager(vmanager);
@@ -196,6 +212,7 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
         findAdapter.notifyDataSetChanged();
         monAdapter.notifyDataSetChanged();
         newGoodsAdapter.notifyDataSetChanged();
+        ploAdapter.notifyDataSetChanged();
     }
 
     @Override
