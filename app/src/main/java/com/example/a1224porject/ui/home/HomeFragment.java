@@ -1,5 +1,6 @@
 package com.example.a1224porject.ui.home;
 
+import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
+import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
 import com.alibaba.android.vlayout.layout.SingleLayoutHelper;
 import com.example.a1224porject.R;
 import com.example.a1224porject.adapter.BannerAdapter;
@@ -30,6 +32,9 @@ import com.example.a1224porject.adapter.MonAdapter;
 import com.example.a1224porject.adapter.NewGoodsAdapter;
 import com.example.a1224porject.adapter.NextSingleAdapter;
 import com.example.a1224porject.adapter.TextAdapter;
+import com.example.a1224porject.adapter.TopAdapter;
+import com.example.a1224porject.adapter.TopallAdapter;
+import com.example.a1224porject.adapter.ZtAdapter;
 import com.example.a1224porject.adapter.ploAdapter;
 import com.example.a1224porject.base.BaseFragment;
 import com.example.a1224porject.base.BasePersenter;
@@ -62,6 +67,10 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
     private ArrayList<MainSingleBean.DataDTO.HotGoodsListDTO> hotlist;
     private DelegateAdapter delegateAdapter;
     private HotGoodsAdapter hotGoodsAdapter;
+    private ArrayList<MainSingleBean.DataDTO.TopicListDTO> toplist;
+    private TopAdapter topAdapter;
+    private TopallAdapter topallAdapter;
+    private ZtAdapter ztAdapter;
 
 
     protected void initView(View view) {
@@ -83,19 +92,40 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
         initZhuanti();
         //对应的文字和网格
         initNext();
+        //滑动
+        initSColl();
+        //居家开始 数据展示
+        initShow();
         //放最后
         rlv.setAdapter(delegateAdapter);
         rlv.setLayoutManager(vmanager);
 
     }
 
+    private void initShow() {
 
+    }
+    private void initSColl() {
+        //定义文字：专题推荐
+        SingleLayoutHelper singleLayoutHelper6 = new SingleLayoutHelper();
+        // 公共属性
+        singleLayoutHelper6.setItemCount(1);// 设置布局里Item个数
+        ztAdapter = new ZtAdapter(singleLayoutHelper6,getActivity());
+        delegateAdapter.addAdapter(ztAdapter);
+        toplist = new ArrayList<>();
+        SingleLayoutHelper singleLayoutHelpers = new SingleLayoutHelper();
+        // 公共属性
+        singleLayoutHelpers.setItemCount(1);// 设置布局里Item个数
+        //singleLayoutHelpers.setPadding(20,20,20,20);
 
+        topallAdapter = new TopallAdapter(singleLayoutHelpers,getActivity(),toplist);
+        delegateAdapter.addAdapter(topallAdapter);
+
+    }
     private void initSearch() {
         SingleLayoutHelper singleLayoutHelper2 = new SingleLayoutHelper();
         // 公共属性
-        singleLayoutHelper2.setMargin(10, 10, 10, 10);// 设置LayoutHelper边缘相对父控件（即RecyclerView）的距离
-        singleLayoutHelper2.setAspectRatio(4);// 设置设置布局内每行布局的宽与高的比
+       // singleLayoutHelper2.setMargin(10, 10, 10, 10);// 设置LayoutHelper边缘相对父控件（即RecyclerView）的距离
         singleLayoutHelper2.setItemCount(1);// 设置布局里Item个数
         findAdapter = new FindAdapter(singleLayoutHelper2, getActivity());
         delegateAdapter.addAdapter(findAdapter);
@@ -197,8 +227,8 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
         hotGoodsAdapter = new HotGoodsAdapter(gridLayoutHelper3,getActivity(),hotlist);
         delegateAdapter.addAdapter(hotGoodsAdapter);
 
-
     }
+
 
     @Override
     protected void initDate() {
@@ -223,6 +253,9 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
         bannerlist.addAll(mainSingleBean.getData().getBanner());
         goodslist.addAll(mainSingleBean.getData().getNewGoodsList());
         hotlist.addAll(mainSingleBean.getData().getHotGoodsList());
+        toplist.addAll(mainSingleBean.getData().getTopicList());
+        topallAdapter.notifyDataSetChanged();
+        ztAdapter.notifyDataSetChanged();
         bannerAdapter.notifyDataSetChanged();
         nextSingleAdapter.notifyDataSetChanged();
         mainSingleAdapter.notifyDataSetChanged();
