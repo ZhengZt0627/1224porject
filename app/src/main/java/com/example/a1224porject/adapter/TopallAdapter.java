@@ -59,7 +59,7 @@ public class TopallAdapter  extends DelegateAdapter.Adapter {
         private RecyclerView rlv;
         public Holder(@NonNull View itemView) {
             super(itemView);
-            rlv=itemView.findViewById(R.id.rlv);
+            rlv=itemView.findViewById(R.id.rlv_top);
         }
     }
 }

@@ -10,7 +10,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rlv"
+        android:id="@+id/rlv_main"
         android:scrollbars="none"
         app:fastScrollEnabled="false"
         android:overScrollMode="never"

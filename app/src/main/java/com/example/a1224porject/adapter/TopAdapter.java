@@ -36,6 +36,7 @@ public class TopAdapter extends RecyclerView.Adapter<TopAdapter.Viewholder>{
 
     @Override
     public void onBindViewHolder(@NonNull Viewholder holder, int position) {
+
         Glide.with(context).load(toplist.get(position).getItem_pic_url()).into(holder.img);
         holder.tv1.setText(toplist.get(position).getTitle()+"");
         holder.tv2.setText(toplist.get(position).getSubtitle()+"");

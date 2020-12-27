@@ -73,7 +73,7 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
     private CateAdapter cateAdapter;
 
     protected void initView(View view) {
-        rlv = view.findViewById(R.id.rlv);
+        rlv = view.findViewById(R.id.rlv_main);
         //创建Vlayout对象
         initVmanager();
         //搜索框
@@ -93,10 +93,12 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
     }
     private void initShow() {
         catList = new ArrayList<>();
-        SingleLayoutHelper singleLayoutHelperc = new SingleLayoutHelper();
-        singleLayoutHelperc.setItemCount(4);
-        cateAdapter = new CateAdapter(singleLayoutHelperc,getActivity(),catList);
+        SingleLayoutHelper singleLayoutHelper = new SingleLayoutHelper();
+        singleLayoutHelper.setItemCount(1);
+        cateAdapter = new CateAdapter(singleLayoutHelper,getActivity(),catList);
         delegateAdapter.addAdapter(cateAdapter);
+
+
     }
     private void initSColl() {
         //定义文字：专题推荐
@@ -142,15 +144,15 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
         // 在构造函数设置每行的网格个数
         // 公共属性
         gridLayoutHelper.setItemCount(5);// 设置布局里Item个数
-        gridLayoutHelper.setPadding(10, 10, 10, 10);// 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
-        gridLayoutHelper.setMargin(10, 10, 10, 10);// 设置LayoutHelper边缘相对父控件（即RecyclerView）的距离
-        gridLayoutHelper.setBgColor(Color.WHITE);// 设置背景颜色
-        gridLayoutHelper.setAspectRatio(6);// 设置设置布局内每行布局的宽与高的比
+//        gridLayoutHelper.setPadding(10, 10, 10, 10);// 设置LayoutHelper的子元素相对LayoutHelper边缘的距离
+//        gridLayoutHelper.setMargin(10, 10, 10, 10);// 设置LayoutHelper边缘相对父控件（即RecyclerView）的距离
+//        gridLayoutHelper.setBgColor(Color.WHITE);// 设置背景颜色
+//        gridLayoutHelper.setAspectRatio(6);// 设置设置布局内每行布局的宽与高的比
         // gridLayoutHelper特有属性（下面会详细说明）
-        gridLayoutHelper.setWeights(new float[]{20, 20, 20, 20, 20});//设置每行中 每个网格宽度 占 每行总宽度 的比例
-        gridLayoutHelper.setVGap(20);// 控制子元素之间的垂直间距
-        gridLayoutHelper.setHGap(20);// 控制子元素之间的水平间距
-        gridLayoutHelper.setAutoExpand(false);//是否自动填充空白区域
+//        gridLayoutHelper.setWeights(new float[]{20, 20, 20, 20, 20});//设置每行中 每个网格宽度 占 每行总宽度 的比例
+//        gridLayoutHelper.setVGap(20);// 控制子元素之间的垂直间距
+//        gridLayoutHelper.setHGap(20);// 控制子元素之间的水平间距
+//        gridLayoutHelper.setAutoExpand(false);//是否自动填充空白区域
         gridLayoutHelper.setSpanCount(5);// 设置每行多少个网格
         mainSingleAdapter = new MainSingleAdapter(gridLayoutHelper, getActivity(), singlelist);
         //设置适配器2
@@ -172,11 +174,11 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
         //gridLayoutHelper1.setMarginTop(30);
         gridLayoutHelper1.setSpanCount(2);
         //设置垂直方向条目的间隔
-        gridLayoutHelper1.setVGap(5);
+//        gridLayoutHelper1.setVGap(5);
         //设置水平方向条目的间隔
-        gridLayoutHelper1.setHGap(5);
-        gridLayoutHelper1.setMarginLeft(30);
-        gridLayoutHelper1.setMarginRight(30);
+//        gridLayoutHelper1.setHGap(5);
+//        gridLayoutHelper1.setMarginLeft(30);
+//        gridLayoutHelper1.setMarginRight(30);
         //  gridLayoutHelper1.setMarginBottom(30);
         //自动填充满布局，在设置完权重，若没有占满，自动填充满布局
         gridLayoutHelper1.setAutoExpand(true);
@@ -196,11 +198,11 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
         //gridLayoutHelper1.setMarginTop(30);
         gridLayoutHelper2.setSpanCount(2);
         //设置垂直方向条目的间隔
-        gridLayoutHelper2.setVGap(5);
+//        gridLayoutHelper2.setVGap(5);
         //设置水平方向条目的间隔
-        gridLayoutHelper2.setHGap(5);
-        gridLayoutHelper2.setMarginLeft(30);
-        gridLayoutHelper2.setMarginRight(30);
+//        gridLayoutHelper2.setHGap(5);
+//        gridLayoutHelper2.setMarginLeft(30);
+//        gridLayoutHelper2.setMarginRight(30);
         //  gridLayoutHelper1.setMarginBottom(30);
         //自动填充满布局，在设置完权重，若没有占满，自动填充满布局
         gridLayoutHelper2.setAutoExpand(true);

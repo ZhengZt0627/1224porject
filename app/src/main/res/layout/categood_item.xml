@@ -5,24 +5,37 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <ImageView
-        android:layout_gravity="center"
-        android:id="@+id/iv_brand"
-        android:layout_width="200dp"
-        android:layout_height="160dp" />
-
     <TextView
-        android:layout_gravity="center"
-        android:id="@+id/tv_name_brand"
+        android:textColor="#000000"
+        android:id="@+id/name_categood"
+        android:textSize="20sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#050505"
-        />
-
-    <TextView
         android:layout_gravity="center"
-        android:id="@+id/tv_price_brand"
-        android:layout_width="wrap_content"
+        android:height="70dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recy_categood"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    <!--    <ImageView-->
+    <!--        android:layout_gravity="center"-->
+    <!--        android:id="@+id/iv_brand"-->
+    <!--        android:layout_width="150dp"-->
+    <!--        android:layout_height="150dp" />-->
+
+    <!--    <TextView-->
+
+    <!--        android:id="@+id/tv_name_brand"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:textColor="#050505"-->
+    <!--        />-->
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/tv_price_brand"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content" />-->
 
 </LinearLayout>
