@@ -197,6 +197,7 @@ public class HomeFragment extends BaseFragment<MainSinglePresenter> implements M
         hotGoodsAdapter = new HotGoodsAdapter(gridLayoutHelper3,getActivity(),hotlist);
         delegateAdapter.addAdapter(hotGoodsAdapter);
 
+
     }
 
     @Override
